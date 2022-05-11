@@ -1,5 +1,5 @@
 import { ref, getDownloadURL } from "firebase/storage";
-import { getStorage, uploadBytes } from "firebase/storage";
+import { getStorage, uploadBytes, uploadBytesResumable } from "firebase/storage";
 import { storage, db } from "../firebase"
 import img from '../car.jpeg'
 
@@ -35,10 +35,7 @@ export async function upload_file_to_storage() {
         console.log(file);
         // MAKE A REFERNCE TO FIREBASE .
         const storageRef = ref(storage, `images/${file.name}`)
-        const uploadTask = 'default'
-        uploadBytes(storageRef, file).then((snapshot) => {
-            uploadTask = snapshot
-        })
+        const uploadTask = uploadBytesResumable(storageRef, file);
         console.log("uploadTask::", uploadTask)
         function handletasks() {
             uploadTask.pause();
@@ -74,6 +71,8 @@ export async function upload_file_to_storage() {
                 // For instance, get the download URL: https://firebasestorage.googleapis.com/...
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     console.log('File available at', downloadURL);
+                    const img = document.getElementById('myimg');
+                    img.setAttribute('src', downloadURL);
                 });
             }
         );
