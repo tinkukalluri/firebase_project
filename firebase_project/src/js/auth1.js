@@ -1,8 +1,8 @@
 // Initialize the FirebaseUI Widget using Firebase.
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import firebaseApp from '../firebase'
 
-
-const auth = getAuth();
+const auth = getAuth(firebaseApp);
 // get the email and password submitted by the user
 var email = ""
 var password = ""

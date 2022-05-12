@@ -1,13 +1,14 @@
 import firebase from 'firebase/compat/app';
-import { initializeApp } from 'firebase/app';
-import { auth } from '../firebase';
 var firebaseui = require('firebaseui');
 
 const firebaseConfig = {
     apiKey: "AIzaSyA3LygH8eygalLh05aLsJihI5fjzgKCzHk",
     authDomain: "fir-project-96325.firebaseapp.com",
     projectId: "fir-project-96325",
+    // this url is for storage
     storageBucket: "fir-project-96325.appspot.com",
+    // this is for realtime database
+    databaseURL: 'https://fir-project-96325-default-rtdb.firebaseio.com',
     messagingSenderId: "141188316365",
     appId: "1:141188316365:web:df6c0dfeba40cdab6afd84"
 };
@@ -33,7 +34,7 @@ var uiConfig = {
     },
     // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
     signInFlow: 'popup',
-    signInSuccessUrl: '',
+    signInSuccessUrl: '<url-to-redirect-to-on-success>',
     signInOptions: [
         // Leave the lines as is for the providers you want to offer your users.
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -49,5 +50,5 @@ var uiConfig = {
     privacyPolicyUrl: '<your-privacy-policy-url>'
 };
 
-
+// make sure u have added a div with #firebaseui-auth-container id
 ui.start('#firebaseui-auth-container', uiConfig);
